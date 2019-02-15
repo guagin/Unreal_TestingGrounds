@@ -19,5 +19,8 @@ public:
 protected:
 	UPROPERTY(EditAnyWhere, Category = "Blackboard")
 	struct FBlackboardKeySelector IndexKey;
+	UPROPERTY(EditAnyWhere, Category = "Blackboard")
+	struct FBlackboardKeySelector NextWayPointkey;
+	TArray<AActor*> PatrolPoints;
 };
 
