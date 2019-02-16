@@ -11,20 +11,20 @@ EBTNodeResult::Type UChooseNextWayPoint::ExecuteTask(UBehaviorTreeComponent& Own
 	auto AIController = OwnerComp.GetAIOwner();
 	if (!AIController) {
 		UE_LOG(LogTemp, Warning, TEXT("AIController not found."));
-		return EBTNodeResult::Succeeded;
+		return EBTNodeResult::Failed;
 	}
 	
 	auto ControlledPawn = AIController->GetPawn();
 
 	auto PatrolRoute = ControlledPawn->FindComponentByClass<UPatrolRoute>();
 	if (!PatrolRoute) {
-		return;
+		return EBTNodeResult::Failed;
 	}
 
 	// Get Patrol Points
 	PatrolPoints = PatrolRoute->GetPatrolPoints();
-	if (!PatrolPoints) {
-		return;
+	if (!PatrolPoints.Num() == 0) {
+		return EBTNodeResult::Failed;
 	}
 
 	// Set Next Way Point
