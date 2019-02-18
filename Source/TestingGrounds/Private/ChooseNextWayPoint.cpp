@@ -18,12 +18,14 @@ EBTNodeResult::Type UChooseNextWayPoint::ExecuteTask(UBehaviorTreeComponent& Own
 
 	auto PatrolRoute = ControlledPawn->FindComponentByClass<UPatrolRoute>();
 	if (!PatrolRoute) {
+		UE_LOG(LogTemp, Warning, TEXT("PatrolRoute not found"));
 		return EBTNodeResult::Failed;
 	}
 
 	// Get Patrol Points
 	PatrolPoints = PatrolRoute->GetPatrolPoints();
-	if (!PatrolPoints.Num() == 0) {
+	if (PatrolPoints.Num() == 0) {
+		UE_LOG(LogTemp, Warning, TEXT("PatrolPoints not found"));
 		return EBTNodeResult::Failed;
 	}
 
